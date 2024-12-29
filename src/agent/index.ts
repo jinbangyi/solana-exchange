@@ -1,30 +1,31 @@
+import { BN } from "@coral-xyz/anchor";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import bs58 from "bs58";
 import Decimal from "decimal.js";
-import { DEFAULT_OPTIONS } from "../constants";
+import { DEFAULT_OPTIONS, SOLANA_RPC_ENDPOINT } from "../constants";
 import {
+  create_gibwork_task,
+  createOrcaSingleSidedWhirlpool,
   deploy_collection,
   deploy_token,
+  FEE_TIERS,
+  fetchPrice,
   get_balance,
+  getTokenDataByAddress,
+  getTokenDataByTicker,
   getTPS,
   launchPumpFunToken,
   lendAsset,
   mintCollectionNFT,
   openbookCreateMarket,
+  pythFetchPrice,
   raydiumCreateAmmV4,
   raydiumCreateClmm,
   raydiumCreateCpmm,
   request_faucet_funds,
+  sendCompressedAirdrop,
   trade,
   transfer,
-  getTokenDataByAddress,
-  getTokenDataByTicker,
-  sendCompressedAirdrop,
-  createOrcaSingleSidedWhirlpool,
-  fetchPrice,
-  pythFetchPrice,
-  FEE_TIERS,
-  create_gibwork_task,
 } from "../tools";
 import {
   CollectionDeployment,
@@ -35,7 +36,6 @@ import {
   PumpfunLaunchResponse,
   PumpFunTokenOptions,
 } from "../types";
-import { BN } from "@coral-xyz/anchor";
 
 /**
  * Main class for interacting with Solana blockchain
@@ -53,7 +53,7 @@ export class SolanaAgentKit {
 
   constructor(
     private_key: string,
-    rpc_url = "https://api.mainnet-beta.solana.com",
+    rpc_url = SOLANA_RPC_ENDPOINT,
   ) {
     this.connection = new Connection(rpc_url);
     this.wallet = Keypair.fromSecretKey(bs58.decode(private_key));

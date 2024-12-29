@@ -41,3 +41,5 @@ export const UPLOAD_PUMPFUN_METADATA_ENDPOINT = "https://pump.fun/api/ipfs";
 export const LULO_LEND_ENDPOINT = "https://blink.lulo.fi/actions";
 
 export const PYTH_HERMES_ENDPOINT = "https://hermes.pyth.network";
+
+export const SOLANA_RPC_ENDPOINT = "https://api.mainnet-beta.solana.com";
