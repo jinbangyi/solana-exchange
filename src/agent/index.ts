@@ -7,8 +7,6 @@ import {
   deploy_token,
   get_balance,
   getTPS,
-  resolveSolDomain,
-  getPrimaryDomain,
   launchPumpFunToken,
   lendAsset,
   mintCollectionNFT,
@@ -16,24 +14,16 @@ import {
   raydiumCreateAmmV4,
   raydiumCreateClmm,
   raydiumCreateCpmm,
-  registerDomain,
   request_faucet_funds,
   trade,
   transfer,
   getTokenDataByAddress,
   getTokenDataByTicker,
-  stakeWithJup,
   sendCompressedAirdrop,
   createOrcaSingleSidedWhirlpool,
   fetchPrice,
   pythFetchPrice,
   FEE_TIERS,
-  getAllDomainsTLDs,
-  getAllRegisteredAllDomains,
-  getOwnedDomainsForTLD,
-  getMainAllDomainsDomain,
-  getOwnedAllDomains,
-  resolveAllDomains,
   create_gibwork_task,
 } from "../tools";
 import {
@@ -60,17 +50,14 @@ export class SolanaAgentKit {
   public connection: Connection;
   public wallet: Keypair;
   public wallet_address: PublicKey;
-  public openai_api_key: string;
 
   constructor(
     private_key: string,
     rpc_url = "https://api.mainnet-beta.solana.com",
-    openai_api_key: string,
   ) {
     this.connection = new Connection(rpc_url);
     this.wallet = Keypair.fromSecretKey(bs58.decode(private_key));
     this.wallet_address = this.wallet.publicKey;
-    this.openai_api_key = openai_api_key;
   }
 
   // Tool methods
@@ -112,18 +99,6 @@ export class SolanaAgentKit {
     mint?: PublicKey,
   ): Promise<string> {
     return transfer(this, to, amount, mint);
-  }
-
-  async registerDomain(name: string, spaceKB?: number): Promise<string> {
-    return registerDomain(this, name, spaceKB);
-  }
-
-  async resolveSolDomain(domain: string): Promise<PublicKey> {
-    return resolveSolDomain(this, domain);
-  }
-
-  async getPrimaryDomain(account: PublicKey): Promise<string> {
-    return getPrimaryDomain(this, account);
   }
 
   async trade(
@@ -176,10 +151,6 @@ export class SolanaAgentKit {
     );
   }
 
-  async stake(amount: number): Promise<string> {
-    return stakeWithJup(this, amount);
-  }
-
   async sendCompressedAirdrop(
     mintAddress: string,
     amount: number,
@@ -216,31 +187,6 @@ export class SolanaAgentKit {
       maxPrice,
       feeTier,
     );
-  }
-
-  async resolveAllDomains(domain: string): Promise<PublicKey | undefined> {
-    return resolveAllDomains(this, domain);
-  }
-
-  async getOwnedAllDomains(owner: PublicKey): Promise<string[]> {
-    return getOwnedAllDomains(this, owner);
-  }
-
-  async getOwnedDomainsForTLD(tld: string): Promise<string[]> {
-    return getOwnedDomainsForTLD(this, tld);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  async getAllDomainsTLDs(): Promise<String[]> {
-    return getAllDomainsTLDs(this);
-  }
-
-  async getAllRegisteredAllDomains(): Promise<string[]> {
-    return getAllRegisteredAllDomains(this);
-  }
-
-  async getMainAllDomainsDomain(owner: PublicKey): Promise<string | null> {
-    return getMainAllDomainsDomain(this, owner);
   }
 
   async raydiumCreateAmmV4(

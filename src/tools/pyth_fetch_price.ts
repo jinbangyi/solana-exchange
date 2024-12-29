@@ -1,5 +1,6 @@
 import { PriceServiceConnection } from "@pythnetwork/price-service-client";
 import BN from "bn.js";
+import { PYTH_HERMES_ENDPOINT } from "../constants";
 
 /**
  * Fetch the price of a given price feed from Pyth
@@ -11,7 +12,7 @@ import BN from "bn.js";
  */
 export async function pythFetchPrice(priceFeedID: string): Promise<string> {
   // get Hermes service URL from https://docs.pyth.network/price-feeds/api-instances-and-providers/hermes
-  const stableHermesServiceUrl: string = "https://hermes.pyth.network";
+  const stableHermesServiceUrl: string = PYTH_HERMES_ENDPOINT;
   const connection = new PriceServiceConnection(stableHermesServiceUrl);
   const feeds = [priceFeedID];
 

@@ -1,5 +1,6 @@
 // src/tools/launch_pumpfun_token.ts
-import { VersionedTransaction, Keypair } from "@solana/web3.js";
+import { Keypair, VersionedTransaction } from "@solana/web3.js";
+import { CREATE_PUMPFUN_TRANSACTION_ENDPOINT, UPLOAD_PUMPFUN_METADATA_ENDPOINT } from "../constants";
 import {
   PumpfunLaunchResponse,
   PumpFunTokenOptions,
@@ -48,7 +49,7 @@ async function uploadMetadata(
     finalFormData.append("file", files.file);
   }
 
-  const metadataResponse = await fetch("https://pump.fun/api/ipfs", {
+  const metadataResponse = await fetch(UPLOAD_PUMPFUN_METADATA_ENDPOINT, {
     method: "POST",
     body: finalFormData,
   });
@@ -82,7 +83,7 @@ async function createTokenTransaction(
     pool: "pump",
   };
 
-  const response = await fetch("https://pumpportal.fun/api/trade-local", {
+  const response = await fetch(CREATE_PUMPFUN_TRANSACTION_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

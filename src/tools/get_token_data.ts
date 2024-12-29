@@ -1,4 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
+import { DEXSCREENER_SEARCH_ENDPOINT, JUP_TOKEN_ENDPOINT } from "../constants";
 import { JupiterTokenData } from "../types";
 
 export async function getTokenDataByAddress(
@@ -9,7 +10,7 @@ export async function getTokenDataByAddress(
       throw new Error("Mint address is required");
     }
 
-    const response = await fetch("https://tokens.jup.ag/tokens?tags=verified", {
+    const response = await fetch(`${JUP_TOKEN_ENDPOINT}?tags=verified`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +32,7 @@ export async function getTokenAddressFromTicker(
 ): Promise<string | null> {
   try {
     const response = await fetch(
-      `https://api.dexscreener.com/latest/dex/search?q=${ticker}`,
+      `${DEXSCREENER_SEARCH_ENDPOINT}?q=${ticker}`,
     );
     const data = await response.json();
 

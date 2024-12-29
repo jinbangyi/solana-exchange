@@ -1,10 +1,10 @@
 import {
-  VersionedTransaction,
-  PublicKey,
   LAMPORTS_PER_SOL,
+  PublicKey,
+  VersionedTransaction,
 } from "@solana/web3.js";
+import { DEFAULT_OPTIONS, JUP_API, TOKENS } from "../constants";
 import { SolanaAgentKit } from "../index";
-import { TOKENS, DEFAULT_OPTIONS, JUP_API } from "../constants";
 
 /**
  * Swap tokens using Jupiter Exchange
@@ -26,18 +26,18 @@ export async function trade(
     const quoteResponse = await (
       await fetch(
         `${JUP_API}/quote?` +
-          `inputMint=${inputMint.toString()}` +
-          `&outputMint=${outputMint.toString()}` +
-          `&amount=${inputAmount * LAMPORTS_PER_SOL}` +
-          `&slippageBps=${slippageBps}` +
-          `&onlyDirectRoutes=true` +
-          `&maxAccounts=20`,
+        `inputMint=${inputMint.toString()}` +
+        `&outputMint=${outputMint.toString()}` +
+        `&amount=${inputAmount * LAMPORTS_PER_SOL}` +
+        `&slippageBps=${slippageBps}` +
+        `&onlyDirectRoutes=true` +
+        `&maxAccounts=20`,
       )
     ).json();
 
     // Get serialized transaction
     const { swapTransaction } = await (
-      await fetch("https://quote-api.jup.ag/v6/swap", {
+      await fetch(`${JUP_API}/swap`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

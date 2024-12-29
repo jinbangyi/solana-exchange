@@ -1,5 +1,5 @@
-import { VersionedTransaction } from "@solana/web3.js";
-import { PublicKey } from "@solana/web3.js";
+import { PublicKey, VersionedTransaction } from "@solana/web3.js";
+import { CREATE_GIBWORK_TASK_ENPOINT } from "../constants";
 import { GibworkCreateTaskReponse, SolanaAgentKit } from "../index";
 
 /**
@@ -26,7 +26,7 @@ export async function create_gibwork_task(
 ): Promise<GibworkCreateTaskReponse> {
   try {
     const apiResponse = await fetch(
-      "https://api2.gib.work/tasks/public/transaction",
+      CREATE_GIBWORK_TASK_ENPOINT,
       {
         method: "POST",
         headers: {

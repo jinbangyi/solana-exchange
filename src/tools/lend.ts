@@ -1,4 +1,5 @@
 import { VersionedTransaction } from "@solana/web3.js";
+import { LULO_LEND_ENDPOINT } from "../constants";
 import { SolanaAgentKit } from "../index";
 
 /**
@@ -13,7 +14,7 @@ export async function lendAsset(
 ): Promise<string> {
   try {
     const response = await fetch(
-      `https://blink.lulo.fi/actions?amount=${amount}&symbol=USDC`,
+      `${LULO_LEND_ENDPOINT}?amount=${amount}&symbol=USDC`,
       {
         method: "POST",
         headers: {
