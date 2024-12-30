@@ -18,7 +18,6 @@ import {
   lendAsset,
   mintCollectionNFT,
   openbookCreateMarket,
-  pythFetchPrice,
   raydiumCreateAmmV4,
   raydiumCreateClmm,
   raydiumCreateCpmm,
@@ -257,10 +256,6 @@ export class SolanaAgentKit {
       lotSize,
       tickSize,
     );
-  }
-
-  async pythFetchPrice(priceFeedID: string): Promise<string> {
-    return pythFetchPrice(priceFeedID);
   }
 
   async createGibworkTask(
