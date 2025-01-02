@@ -1,0 +1,36 @@
+version: "3.7"
+
+networks:
+  test:
+    driver: bridge
+
+services:
+  postgres:
+    container_name: exchange-postgres
+    image: dockerhub.pre.nftgo.dev/library/postgres:14.15
+    restart: always
+    environment:
+      POSTGRES_DB: 'data-center'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    ports:
+      - '5432:5432'
+    networks:
+      - test
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  redis:
+    container_name: exchange-redis
+    image: dockerhub.pre.nftgo.dev/library/redis:7.4.1
+    command: redis-server
+    ports:
+      - 6379:6379
+    networks:
+      - test
+    deploy:
+      resources:
+        limits:
+          memory: 512m

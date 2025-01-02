@@ -31,9 +31,7 @@ export async function getTokenAddressFromTicker(
   ticker: string,
 ): Promise<string | null> {
   try {
-    const response = await fetch(
-      `${DEXSCREENER_SEARCH_ENDPOINT}?q=${ticker}`,
-    );
+    const response = await fetch(`${DEXSCREENER_SEARCH_ENDPOINT}?q=${ticker}`);
     const data = await response.json();
 
     if (!data.pairs || data.pairs.length === 0) {

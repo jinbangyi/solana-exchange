@@ -25,26 +25,23 @@ export async function create_gibwork_task(
   payer?: PublicKey,
 ): Promise<GibworkCreateTaskReponse> {
   try {
-    const apiResponse = await fetch(
-      CREATE_GIBWORK_TASK_ENPOINT,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-          content: content,
-          requirements: requirements,
-          tags: tags,
-          payer: payer?.toBase58() || agent.wallet.publicKey.toBase58(),
-          token: {
-            mintAddress: tokenMintAddress.toBase58(),
-            amount: tokenAmount,
-          },
-        }),
+    const apiResponse = await fetch(CREATE_GIBWORK_TASK_ENPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        requirements: requirements,
+        tags: tags,
+        payer: payer?.toBase58() || agent.wallet.publicKey.toBase58(),
+        token: {
+          mintAddress: tokenMintAddress.toBase58(),
+          amount: tokenAmount,
+        },
+      }),
+    });
 
     const responseData = await apiResponse.json();
     if (!responseData.taskId && !responseData.serializedTransaction) {

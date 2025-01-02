@@ -26,12 +26,12 @@ export async function trade(
     const quoteResponse = await (
       await fetch(
         `${JUP_API}/quote?` +
-        `inputMint=${inputMint.toString()}` +
-        `&outputMint=${outputMint.toString()}` +
-        `&amount=${inputAmount * LAMPORTS_PER_SOL}` +
-        `&slippageBps=${slippageBps}` +
-        `&onlyDirectRoutes=true` +
-        `&maxAccounts=20`,
+          `inputMint=${inputMint.toString()}` +
+          `&outputMint=${outputMint.toString()}` +
+          `&amount=${inputAmount * LAMPORTS_PER_SOL}` +
+          `&slippageBps=${slippageBps}` +
+          `&onlyDirectRoutes=true` +
+          `&maxAccounts=20`,
       )
     ).json();
 

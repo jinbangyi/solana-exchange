@@ -1,17 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Logger } from 'winston';
-import { InjectLogger } from '../providers/logger/logger.decorator';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class ExchangeService {
-
   constructor(
-    @InjectLogger() private logger: Logger,
     configService: ConfigService,
-  ) {
-
-  }
+  ) {}
 
   // --------------- start publicKeyHash mapping ---------------
 

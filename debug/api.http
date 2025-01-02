@@ -1,0 +1,38 @@
+# registry
+curl -X 'POST' \
+  'http://localhost:8080/api/v1/user/registry' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "benny",
+  "password": "benny"
+}'
+
+### 
+
+# login
+curl -X 'POST' \
+  'http://localhost:8080/api/auth/login' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "benny",
+  "password": "benny"
+}'
+
+### 
+
+# generate apikey
+curl -X 'POST' \
+  'http://localhost:8080/api/v1/apikey' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbm55Iiwic3ViIjoiY2E5N2JhNjEtZGE4Mi00MWU5LTg0OGMtZmY0Yjg5NTJmYWQ5Iiwicm9sZSI6IlVTRVIiLCJsYXN0TG9naW5BdCI6IjIwMjUtMDEtMDJUMTE6NTY6NTUuNjU4WiIsInRzIjoxNzM1ODQ0NzE3NTk2LCJpYXQiOjE3MzU4NDQ3MTd9.fwjkXDfh_7hJF8F0brBGIrVViKnivKObLG07L83L6Pk' \
+  -d ''
+
+### 
+
+# get apikey
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/apikey' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbm55Iiwic3ViIjoiY2E5N2JhNjEtZGE4Mi00MWU5LTg0OGMtZmY0Yjg5NTJmYWQ5Iiwicm9sZSI6IlVTRVIiLCJsYXN0TG9naW5BdCI6IjIwMjUtMDEtMDJUMTE6NTY6NTUuNjU4WiIsInRzIjoxNzM1ODQ0NzE3NTk2LCJpYXQiOjE3MzU4NDQ3MTd9.fwjkXDfh_7hJF8F0brBGIrVViKnivKObLG07L83L6Pk'

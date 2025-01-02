@@ -50,10 +50,7 @@ export class SolanaAgentKit {
   public wallet: Keypair;
   public wallet_address: PublicKey;
 
-  constructor(
-    private_key: string,
-    rpc_url = SOLANA_RPC_ENDPOINT,
-  ) {
+  constructor(private_key: string, rpc_url = SOLANA_RPC_ENDPOINT) {
     this.connection = new Connection(rpc_url);
     this.wallet = Keypair.fromSecretKey(bs58.decode(private_key));
     this.wallet_address = this.wallet.publicKey;

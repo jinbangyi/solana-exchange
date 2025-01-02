@@ -1,0 +1,114 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// generator prismaClassGenerator {
+//   provider = "prisma-class-generator"
+//   dryRun  = false
+// }
+
+enum Role {
+  USER
+  ADMIN
+}
+
+// user has multi accounts
+model User {
+  id       Int    @id @default(autoincrement())
+  uuid     String @unique
+  name     String @unique
+  password String
+  salt     String
+
+  role     Role    @default(USER)
+  isActive Boolean @default(false)
+
+  lastLoginAt DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ApiKeyAccount ApiKeyAccount[]
+}
+
+// api key account
+model ApiKeyAccount {
+  id         Int       @id @default(autoincrement())
+  userUuid   String
+  key        String    @unique
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  expiresAt  DateTime?
+  // requests/seconds
+  rateLimit  Int       @default(100)
+  isReadOnly Boolean   @default(false)
+
+  User User @relation(fields: [userUuid], references: [uuid])
+}
+
+// only support solana network
+model Token {
+  id       Int    @id @default(autoincrement())
+  // token account address
+  tokenId  String @unique
+  // token name
+  name     String
+  // token symbol
+  symbol   String
+  decimals Int
+
+  isCanonical          Boolean? @default(false)
+  fullName             String?
+  sellerFeeBasisPoints Int?     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Exchange {
+  id   Int     @id @default(autoincrement())
+  name String? @default("Raydium Liquidity Pool V4")
+  fee  Float?  @default(0.0025)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Market Market[]
+}
+
+model Market {
+  id         Int    @id @default(autoincrement())
+  // TOKEN_NAME_A/TOKEN_NAME_B, sorted by token name
+  name       String
+  // TOKEN_A/TOKEN_B, sorted by token id
+  marketId   String @unique
+  exchangeId Int
+
+  isCanonical Boolean? @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  Exchange Exchange @relation(fields: [exchangeId], references: [id])
+}
+
+// model Order {
+//   id        Int      @id @default(autoincrement())
+//   userUuid  String
+//   // order status: pending, processing, completed, cancelled
+//   status    String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+// model Transaction {
+//   id        Int      @id @default(autoincrement())
+//   orderId   Int
+//   amount    Float
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+// Generate TypeScript interfaces from Prisma models

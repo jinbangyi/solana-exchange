@@ -1,4 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
+import { SetMetadata } from "@nestjs/common";
 
 /**
  * Common token addresses used across the toolkit
@@ -28,14 +29,17 @@ export const DEFAULT_OPTIONS = {
  * Jupiter API URL
  */
 export const JUP_API = "https://quote-api.jup.ag/v6";
-export const JUP_PRICE_ENDPOINT = 'https://api.jup.ag/price/v2';
-export const JUP_TOKEN_ENDPOINT = 'https://tokens.jup.ag/tokens';
+export const JUP_PRICE_ENDPOINT = "https://api.jup.ag/price/v2";
+export const JUP_TOKEN_ENDPOINT = "https://tokens.jup.ag/tokens";
 
-export const CREATE_GIBWORK_TASK_ENPOINT = "https://api2.gib.work/tasks/public/transaction";
+export const CREATE_GIBWORK_TASK_ENPOINT =
+  "https://api2.gib.work/tasks/public/transaction";
 
-export const DEXSCREENER_SEARCH_ENDPOINT = 'https://api.dexscreener.com/latest/dex/search';
+export const DEXSCREENER_SEARCH_ENDPOINT =
+  "https://api.dexscreener.com/latest/dex/search";
 
-export const CREATE_PUMPFUN_TRANSACTION_ENDPOINT = "https://pumpportal.fun/api/trade-local";
+export const CREATE_PUMPFUN_TRANSACTION_ENDPOINT =
+  "https://pumpportal.fun/api/trade-local";
 export const UPLOAD_PUMPFUN_METADATA_ENDPOINT = "https://pump.fun/api/ipfs";
 
 export const LULO_LEND_ENDPOINT = "https://blink.lulo.fi/actions";
@@ -45,3 +49,6 @@ export const PYTH_HERMES_ENDPOINT = "https://hermes.pyth.network";
 export const SOLANA_RPC_ENDPOINT = "https://api.mainnet-beta.solana.com";
 
 export const RUN_ENV = process.env.RUN_ENV || "dev";
+
+export const IS_PUBLIC_KEY = "isPublic";
+export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
