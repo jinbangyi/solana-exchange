@@ -1,5 +1,6 @@
-import { User } from "./user";
 import { ApiProperty } from "@nestjs/swagger";
+
+import { User } from "./user";
 
 export class ApiKeyAccount {
   @ApiProperty({ type: Number })

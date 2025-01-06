@@ -1,11 +1,13 @@
 import { Module } from "@nestjs/common";
-import { ApiKeyService } from "./apikey.service.js";
-import { ApiKeyController } from "./apikey.controller.js";
-import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+
 import { jwtConstants } from "@constants/secrets";
-import { AuthService } from "@modules/authorization/auth/auth.service";
 import { AuthModule } from "@modules/authorization/auth/auth.module";
+import { AuthService } from "@modules/authorization/auth/auth.service";
+
+import { ApiKeyController } from "./apikey.controller";
+import { ApiKeyService } from "./apikey.service";
 
 @Module({
   imports: [

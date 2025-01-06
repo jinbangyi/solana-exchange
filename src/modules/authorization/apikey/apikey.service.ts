@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
+import { ApiKeyAccount } from "@prisma/client";
+
 import { UserEntity } from "@modules/authorization/user/interfaces/types";
 import { PrismaService } from "@modules/internal/prisma/prisma.service";
-import { ApiKeyAccount } from "@prisma/client";
 
 @Injectable()
 export class ApiKeyService {
@@ -10,7 +11,10 @@ export class ApiKeyService {
   async generateDefaultApiKey(user: UserEntity) {
     // generate apikey
     const apiKey = Math.random().toString(36).substring(2, 20);
-    const apiKeyAccount: Pick<ApiKeyAccount, "key" | "rateLimit" | "isReadOnly"> = {
+    const apiKeyAccount: Pick<
+      ApiKeyAccount,
+      "key" | "rateLimit" | "isReadOnly"
+    > = {
       key: apiKey,
       rateLimit: 100,
       isReadOnly: false,

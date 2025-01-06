@@ -1,14 +1,14 @@
-import "./env.js";
-
 import { ValidationPipe, VersioningType } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
-import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { json, urlencoded } from "express";
-import { WINSTON_MODULE_PROVIDER } from "nest-winston";
-import { AppModule } from "./app.module.js";
-import { RUN_ENV } from "./constants/index.js";
-import { LoggerService } from "./modules/internal/logger/logger.service.js";
+
+import { AppModule } from "./app.module";
+import { RUN_ENV } from "./constants/index";
+import "./env";
+import { ReqLoggingInterceptor } from "./middleware/app.interceptor";
+import { LoggerService } from "./modules/internal/logger/logger.service";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -20,6 +20,7 @@ async function bootstrap() {
   });
 
   app.useLogger(new LoggerService());
+  app.useGlobalInterceptors(new ReqLoggingInterceptor());
 
   app.setGlobalPrefix("/api", {
     exclude: ["/health", "/", "/swagger"],
@@ -37,14 +38,23 @@ async function bootstrap() {
       .addTag("exchange")
       .addBearerAuth(
         {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-          name: 'JWT',
-          description: 'Enter JWT token',
-          in: 'header',
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+          name: "JWT",
+          description: "Enter JWT token",
+          in: "header",
         },
-        'JWT-auth', // This is the key used to reference this security scheme
+        "JWT-auth", // This is the key used to reference this security scheme
+      )
+      .addApiKey(
+        {
+          type: "apiKey",
+          name: "x-api-key",
+          in: "header",
+          description: "Enter API Key",
+        },
+        "ApiKey-auth",
       )
       .build();
     const documentFactory = () =>

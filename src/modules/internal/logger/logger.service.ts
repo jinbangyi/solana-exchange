@@ -2,7 +2,6 @@
 // import { WinstonModule } from 'nest-winston';
 // import util from 'util';
 // import winston from 'winston';
-
 // @Global()
 // @Module({
 //   imports: [
@@ -22,7 +21,6 @@
 //   ],
 // })
 // export class LoggerService {}
-
 import { ConsoleLogger, Injectable, Scope } from "@nestjs/common";
 
 @Injectable({ scope: Scope.TRANSIENT })

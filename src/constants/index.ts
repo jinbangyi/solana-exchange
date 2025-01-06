@@ -1,5 +1,5 @@
-import { PublicKey } from "@solana/web3.js";
 import { SetMetadata } from "@nestjs/common";
+import { PublicKey } from "@solana/web3.js";
 
 /**
  * Common token addresses used across the toolkit

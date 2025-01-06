@@ -1,6 +1,7 @@
+import { Keypair, Transaction, TransactionInstruction } from "@solana/web3.js";
+import { ComputeBudgetProgram, Connection } from "@solana/web3.js";
+
 import { SolanaAgentKit } from "../agent";
-import { Transaction, Keypair, TransactionInstruction } from "@solana/web3.js";
-import { Connection, ComputeBudgetProgram } from "@solana/web3.js";
 
 /**
  * Get priority fees for the current block

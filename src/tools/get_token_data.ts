@@ -1,4 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
+
 import { DEXSCREENER_SEARCH_ENDPOINT, JUP_TOKEN_ENDPOINT } from "../constants";
 import { JupiterTokenData } from "../types";
 

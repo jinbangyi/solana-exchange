@@ -6,17 +6,18 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
   Request,
+  UseGuards,
 } from "@nestjs/common";
-import { ApiKeyService } from "./apikey.service.js";
-import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard.js";
-import { UserEntity } from "../user/interfaces/types.js";
 import { ApiBearerAuth } from "@nestjs/swagger";
-import { JWTPayload } from "../auth/interfaces/types.js";
-import { AuthService, jwtPayloadToUserEntity } from "../auth/auth.service.js";
 
-@ApiBearerAuth('JWT-auth')
+import { AuthService } from "@modules/authorization/auth/auth.service";
+import { JwtAuthGuard } from "@modules/authorization/auth/guard/jwt-auth.guard";
+import { UserEntity } from "@modules/authorization/user/interfaces/types";
+
+import { ApiKeyService } from "./apikey.service";
+
+@ApiBearerAuth("JWT-auth")
 @UseGuards(JwtAuthGuard)
 @Controller({
   path: "/apikey",
@@ -32,7 +33,7 @@ export class ApiKeyController {
   @Post()
   create(@Request() req) {
     const user: UserEntity = req.user;
-    console.log('user', user);
+    console.log("user", user);
     // TODO check user's plan
     // TODO check apikey not reach limit
     return this.apiKeyService.generateDefaultApiKey(user);

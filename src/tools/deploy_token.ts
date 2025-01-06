@@ -1,18 +1,19 @@
-import { SolanaAgentKit } from "../index";
-import { PublicKey } from "@solana/web3.js";
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { generateSigner, keypairIdentity } from "@metaplex-foundation/umi";
 import {
+  TokenStandard,
   createFungible,
   mintV1,
-  TokenStandard,
 } from "@metaplex-foundation/mpl-token-metadata";
+import { mplToolbox } from "@metaplex-foundation/mpl-toolbox";
+import { generateSigner, keypairIdentity } from "@metaplex-foundation/umi";
+import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import {
   fromWeb3JsKeypair,
   fromWeb3JsPublicKey,
   toWeb3JsPublicKey,
 } from "@metaplex-foundation/umi-web3js-adapters";
-import { mplToolbox } from "@metaplex-foundation/mpl-toolbox";
+import { PublicKey } from "@solana/web3.js";
+
+import { SolanaAgentKit } from "../index";
 
 /**
  * Deploy a new SPL token

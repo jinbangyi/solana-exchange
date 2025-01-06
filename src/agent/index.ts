@@ -2,18 +2,19 @@ import { BN } from "@coral-xyz/anchor";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import bs58 from "bs58";
 import Decimal from "decimal.js";
+
 import { DEFAULT_OPTIONS, SOLANA_RPC_ENDPOINT } from "../constants";
 import {
-  create_gibwork_task,
+  FEE_TIERS,
   createOrcaSingleSidedWhirlpool,
+  create_gibwork_task,
   deploy_collection,
   deploy_token,
-  FEE_TIERS,
   fetchPrice,
-  get_balance,
+  getTPS,
   getTokenDataByAddress,
   getTokenDataByTicker,
-  getTPS,
+  get_balance,
   launchPumpFunToken,
   lendAsset,
   mintCollectionNFT,
@@ -32,8 +33,8 @@ import {
   GibworkCreateTaskReponse,
   JupiterTokenData,
   MintCollectionNFTResponse,
-  PumpfunLaunchResponse,
   PumpFunTokenOptions,
+  PumpfunLaunchResponse,
 } from "../types";
 
 /**

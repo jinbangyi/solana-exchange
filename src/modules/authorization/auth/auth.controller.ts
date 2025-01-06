@@ -1,16 +1,18 @@
 import {
   Body,
   Controller,
-  Post,
   HttpCode,
   HttpStatus,
-  UseGuards,
+  Post,
   Request,
+  UseGuards,
 } from "@nestjs/common";
-import { AuthService } from "./auth.service.js";
-import { LocalAuthGuard } from "./guard/local-auth.guard.js";
+
 import { UserEntity } from "@modules/authorization/user/interfaces/types";
-import { SignInDto } from "./dto/auth.dto.js";
+
+import { AuthService } from "./auth.service";
+import { SignInDto } from "./dto/auth.dto";
+import { LocalAuthGuard } from "./guard/local-auth.guard";
 
 @UseGuards(LocalAuthGuard)
 @Controller("auth")

@@ -3,6 +3,7 @@ import {
   PublicKey,
   VersionedTransaction,
 } from "@solana/web3.js";
+
 import { DEFAULT_OPTIONS, JUP_API, TOKENS } from "../constants";
 import { SolanaAgentKit } from "../index";
 

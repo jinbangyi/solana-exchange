@@ -54,11 +54,9 @@ model ApiKeyAccount {
 model Token {
   id       Int    @id @default(autoincrement())
   // token account address
-  tokenId  String @unique
+  code     String @unique
   // token name
   name     String
-  // token symbol
-  symbol   String
   decimals Int
 
   isCanonical          Boolean? @default(false)

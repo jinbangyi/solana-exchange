@@ -1,15 +1,21 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { AppController } from "./app.controller.js";
-import { AppService } from "./app.service.js";
-import { ExchangeModule } from "./exchange/exchange.module.js";
-import { RUN_ENV } from "./constants/index.js";
 import { DevtoolsModule } from "@nestjs/devtools-integration";
-import { LoggerModule } from "./modules/internal/logger/logger.module.js";
-import { UserModule } from "./modules/authorization/user/user.module.js";
-import { AuthModule } from "./modules/authorization/auth/auth.module.js";
-import { ApiKeyModule } from "./modules/authorization/apikey/apikey.module.js";
-import { PrismaModule } from "./modules/internal/prisma/prisma.module.js";
+
+import { RedisModule } from "@modules/internal/redis/redis.module";
+import { OrderbookModule } from "@modules/orderbook/orderbook.module";
+
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { RUN_ENV } from "./constants/index";
+import { ApiKeyAuthMiddleware } from "./middleware/apikey-auth.middleware";
+import { LoggingMiddleware } from "./middleware/logging.middleware";
+import { ApiKeyModule } from "./modules/authorization/apikey/apikey.module";
+import { AuthModule } from "./modules/authorization/auth/auth.module";
+import { UserModule } from "./modules/authorization/user/user.module";
+import { ExchangeModule } from "./modules/exchange/exchange.module";
+import { LoggerModule } from "./modules/internal/logger/logger.module";
+import { PrismaModule } from "./modules/internal/prisma/prisma.module";
 
 @Module({
   imports: [
@@ -18,6 +24,8 @@ import { PrismaModule } from "./modules/internal/prisma/prisma.module.js";
       isGlobal: true,
     }),
     LoggerModule,
+
+    RedisModule,
     PrismaModule,
 
     // DevtoolsModule.register({
@@ -29,8 +37,14 @@ import { PrismaModule } from "./modules/internal/prisma/prisma.module.js";
     ApiKeyModule,
 
     // ExchangeModule,
+    OrderbookModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggingMiddleware).forRoutes("*");
+    consumer.apply(ApiKeyAuthMiddleware).forRoutes("/api/v1/market/*"); // 应用到所有路由
+  }
+}

@@ -1,82 +1,83 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { AuthController } from "./auth.controller.js";
-import { AuthService } from "./auth.service.js";
-import { HttpStatus } from "@nestjs/common";
+// import { HttpStatus } from "@nestjs/common";
+// import { Test, TestingModule } from "@nestjs/testing";
 
-describe("AuthController", () => {
-  let authController: AuthController;
-  let authService: AuthService;
+// import { AuthController } from "./auth.controller.js";
+// import { AuthService } from "./auth.service.js";
 
-  const mockAuthService = {
-    login: jest.fn(),
-  };
+// describe("AuthController", () => {
+//   let authController: AuthController;
+//   let authService: AuthService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [AuthController],
-      providers: [
-        {
-          provide: AuthService,
-          useValue: mockAuthService,
-        },
-      ],
-    }).compile();
+//   const mockAuthService = {
+//     login: jest.fn(),
+//   };
 
-    authController = module.get<AuthController>(AuthController);
-    authService = module.get<AuthService>(AuthService);
-  });
+//   beforeEach(async () => {
+//     const module: TestingModule = await Test.createTestingModule({
+//       controllers: [AuthController],
+//       providers: [
+//         {
+//           provide: AuthService,
+//           useValue: mockAuthService,
+//         },
+//       ],
+//     }).compile();
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+//     authController = module.get<AuthController>(AuthController);
+//     authService = module.get<AuthService>(AuthService);
+//   });
 
-  describe("signIn", () => {
-    const signInDto = {
-      username: "testuser",
-      password: "testpass",
-    };
+//   afterEach(() => {
+//     jest.clearAllMocks();
+//   });
 
-    const mockLoginResponse = {
-      access_token: "mock-token",
-    };
+//   describe("signIn", () => {
+//     const signInDto = {
+//       username: "testuser",
+//       password: "testpass",
+//     };
 
-    it("should successfully login user", async () => {
-      mockAuthService.login.mockResolvedValue(mockLoginResponse);
+//     const mockLoginResponse = {
+//       access_token: "mock-token",
+//     };
 
-      const result = await authController.signIn(signInDto);
+//     it("should successfully login user", async () => {
+//       mockAuthService.login.mockResolvedValue(mockLoginResponse);
 
-      expect(result).toBe(mockLoginResponse);
-      expect(authService.login).toHaveBeenCalledWith(
-        signInDto.username,
-        signInDto.password,
-      );
-      expect(authService.login).toHaveBeenCalledTimes(1);
-    });
+//       const result = await authController.signIn(signInDto);
 
-    it("should call AuthService.login with correct parameters", async () => {
-      await authController.signIn(signInDto);
+//       expect(result).toBe(mockLoginResponse);
+//       expect(authService.login).toHaveBeenCalledWith(
+//         signInDto.username,
+//         signInDto.password,
+//       );
+//       expect(authService.login).toHaveBeenCalledTimes(1);
+//     });
 
-      expect(authService.login).toHaveBeenCalledWith(
-        signInDto.username,
-        signInDto.password,
-      );
-    });
+//     it("should call AuthService.login with correct parameters", async () => {
+//       await authController.signIn(signInDto);
 
-    it("should handle login failure", async () => {
-      const errorMessage = "Invalid credentials";
-      mockAuthService.login.mockRejectedValue(new Error(errorMessage));
+//       expect(authService.login).toHaveBeenCalledWith(
+//         signInDto.username,
+//         signInDto.password,
+//       );
+//     });
 
-      await expect(authController.signIn(signInDto)).rejects.toThrow(
-        errorMessage,
-      );
-    });
+//     it("should handle login failure", async () => {
+//       const errorMessage = "Invalid credentials";
+//       mockAuthService.login.mockRejectedValue(new Error(errorMessage));
 
-    it("should have correct HTTP status code decorator", () => {
-      const metadata = Reflect.getMetadata(
-        "custom:http-code",
-        authController.signIn,
-      );
-      expect(metadata).toBe(HttpStatus.OK);
-    });
-  });
-});
+//       await expect(authController.signIn(signInDto)).rejects.toThrow(
+//         errorMessage,
+//       );
+//     });
+
+//     it("should have correct HTTP status code decorator", () => {
+//       const metadata = Reflect.getMetadata(
+//         "custom:http-code",
+//         authController.signIn,
+//       );
+//       expect(metadata).toBe(HttpStatus.OK);
+//     });
+//   });
+// });

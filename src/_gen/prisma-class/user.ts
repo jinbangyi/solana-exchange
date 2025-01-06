@@ -1,6 +1,7 @@
-import { ApiKeyAccount } from "./api_key_account";
-import { Role } from "@prisma/client";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { Role } from "@prisma/client";
+
+import { ApiKeyAccount } from "./api_key_account";
 
 export class User {
   @ApiProperty({ type: Number })

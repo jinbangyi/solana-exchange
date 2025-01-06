@@ -1,16 +1,18 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Post,
-  Get,
   Req,
   UseGuards,
 } from "@nestjs/common";
-import { UserService } from "./user.service.js";
-import { RegistryDto } from "./dto/user.dto.js";
-import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard.js";
-import { Public } from "../../../constants/index.js";
+
+import { Public } from "@constants/index";
+import { JwtAuthGuard } from "@modules/authorization/auth/guard/jwt-auth.guard";
+
+import { RegistryDto } from "./dto/user.dto";
+import { UserService } from "./user.service";
 
 @UseGuards(JwtAuthGuard)
 @Controller({

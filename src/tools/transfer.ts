@@ -1,11 +1,12 @@
-import { SolanaAgentKit } from "../index";
-import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import {
-  getAssociatedTokenAddress,
   createTransferInstruction,
+  getAssociatedTokenAddress,
   getMint,
 } from "@solana/spl-token";
+import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+
+import { SolanaAgentKit } from "../index";
 
 /**
  * Transfer SOL or SPL tokens to a recipient

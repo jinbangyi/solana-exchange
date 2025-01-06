@@ -1,14 +1,15 @@
-import { SolanaAgentKit } from "../index";
-import { generateSigner, keypairIdentity } from "@metaplex-foundation/umi";
 import { create, mplCore } from "@metaplex-foundation/mpl-core";
 import { fetchCollection } from "@metaplex-foundation/mpl-core";
-import { PublicKey } from "@solana/web3.js";
+import { generateSigner, keypairIdentity } from "@metaplex-foundation/umi";
+import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import {
   fromWeb3JsKeypair,
   fromWeb3JsPublicKey,
   toWeb3JsPublicKey,
 } from "@metaplex-foundation/umi-web3js-adapters";
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { PublicKey } from "@solana/web3.js";
+
+import { SolanaAgentKit } from "../index";
 import { MintCollectionNFTResponse } from "../types";
 
 /**

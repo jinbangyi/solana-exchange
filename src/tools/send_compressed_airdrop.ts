@@ -1,24 +1,25 @@
 import {
+  CompressedTokenProgram,
+  createTokenPool,
+} from "@lightprotocol/compressed-token";
+import {
+  Rpc,
+  buildAndSignTx,
+  calculateComputeUnitPrice,
+  createRpc,
+  sendAndConfirmTx,
+  sleep,
+} from "@lightprotocol/stateless.js";
+import { getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
+import {
   AddressLookupTableAccount,
   ComputeBudgetProgram,
   Keypair,
   PublicKey,
   TransactionInstruction,
 } from "@solana/web3.js";
+
 import { SolanaAgentKit } from "../index";
-import {
-  buildAndSignTx,
-  calculateComputeUnitPrice,
-  createRpc,
-  Rpc,
-  sendAndConfirmTx,
-  sleep,
-} from "@lightprotocol/stateless.js";
-import {
-  CompressedTokenProgram,
-  createTokenPool,
-} from "@lightprotocol/compressed-token";
-import { getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 
 // arbitrary
 const MAX_AIRDROP_RECIPIENTS = 1000;

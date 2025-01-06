@@ -1,4 +1,11 @@
-import { IsInt, IsString, Max, Min, MinLength, ValidateIf } from "class-validator";
+import {
+  IsInt,
+  IsString,
+  Max,
+  Min,
+  MinLength,
+  ValidateIf,
+} from "class-validator";
 
 export class SignInDto {
   @IsString()

@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 
-import { UserService } from "@modules/authorization/user/user.service";
-import { UserEntity } from "@modules/authorization/user/interfaces/types";
 import { jwtConstants } from "@constants/secrets";
+import { UserEntity } from "@modules/authorization/user/interfaces/types";
+import { UserService } from "@modules/authorization/user/user.service";
 
 import { JWTPayload } from "./interfaces/types";
 
@@ -13,7 +13,7 @@ export function jwtPayloadToUserEntity(payload: JWTPayload): UserEntity {
     username: payload.username,
     role: payload.role,
     lastLoginAt: payload.lastLoginAt,
-    isAdmin: payload.role === 'admin',
+    isAdmin: payload.role === "admin",
   };
 }
 
@@ -34,7 +34,9 @@ export class AuthService {
     };
 
     return {
-      access_token: this.jwtService.sign(payload, { secret: jwtConstants.secret }),
+      access_token: this.jwtService.sign(payload, {
+        secret: jwtConstants.secret,
+      }),
     };
   }
 
@@ -45,6 +47,12 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
+    return this.userService.getUserEntityFromUser(user);
+  }
+
+  // validateApiKey(apikey: string): boolean {
+  async validateApiKey(apiKey: string): Promise<UserEntity> {
+    const user = await this.userService.findUserByApiKey(apiKey);
     return this.userService.getUserEntityFromUser(user);
   }
 }

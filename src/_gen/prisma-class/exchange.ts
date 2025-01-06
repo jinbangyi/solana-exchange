@@ -1,5 +1,6 @@
-import { Market } from "./market";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+
+import { Market } from "./market";
 
 export class Exchange {
   @ApiProperty({ type: Number })

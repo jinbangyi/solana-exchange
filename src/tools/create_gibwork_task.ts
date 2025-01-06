@@ -1,4 +1,5 @@
 import { PublicKey, VersionedTransaction } from "@solana/web3.js";
+
 import { CREATE_GIBWORK_TASK_ENPOINT } from "../constants";
 import { GibworkCreateTaskReponse, SolanaAgentKit } from "../index";
 

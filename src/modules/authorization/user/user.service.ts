@@ -1,10 +1,12 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { UserEntity } from "./interfaces/types.js";
+import { Role, User } from "@prisma/client";
 import * as bcrypt from "bcrypt";
-import { RegistryDto } from "./dto/user.dto.js";
-import { User, Role } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
-import { PrismaService } from "../../internal/prisma/prisma.service.js";
+
+import { PrismaService } from "@modules/internal/prisma/prisma.service";
+
+import { RegistryDto } from "./dto/user.dto";
+import { UserEntity } from "./interfaces/types";
 
 @Injectable()
 export class UserService {
@@ -75,6 +77,20 @@ export class UserService {
     const findUser = await this.prismaService.user.findUniqueOrThrow({
       where: {
         name: username,
+      },
+    });
+
+    return findUser;
+  }
+
+  async findUserByApiKey(apiKey: string) {
+    const findUser = await this.prismaService.user.findFirstOrThrow({
+      where: {
+        ApiKeyAccount: {
+          some: {
+            key: apiKey,
+          },
+        },
       },
     });
 
