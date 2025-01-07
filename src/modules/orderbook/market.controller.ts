@@ -66,6 +66,7 @@ export class MarketController {
       timeframe = 10;
     }
   
+    // TODO return internal python http server
     return this.marketService.getOHLCV(token, timeframe, Number(fetchOHLCVDto.since), fetchOHLCVDto.limit);
   }
   // async fetchOHLCV(@Param("market") market: string): Promise<Record<string, any>> {

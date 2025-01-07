@@ -106,6 +106,7 @@ export class MarketService {
 
     this.logger.debug(`filteredTrades: ${filteredTrades.length}, example: ${JSON.stringify(filteredTrades[0])}`);
 
+    // TODO resample
     const ret = resampleTicksByTime(filteredTrades, {
       timeframe,
       includeLatestCandle: true,
