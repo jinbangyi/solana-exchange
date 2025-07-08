@@ -128,6 +128,12 @@ import {
 } from "./squads/tools";
 import { simulate_switchboard_feed } from "./switchboard/tools";
 
+// crossmint
+import checkoutAction from "./crossmint/actions/checkoutAction";
+import confirmOrderAction from "./crossmint/actions/confirmOrderAction";
+import checkout from "./crossmint/tools/checkout";
+import confirmOrder from "./crossmint/tools/confirm-order";
+
 // Define and export the plugin
 const MiscPlugin = {
   name: "misc",
@@ -177,6 +183,8 @@ const MiscPlugin = {
     parseAccountUsingSolanaFM,
     parseInstructionUsingSolanaFM,
     askMessariAi,
+    checkout,
+    confirmOrder,
   },
 
   // Combine all actions
@@ -223,6 +231,8 @@ const MiscPlugin = {
     parseAccountAction,
     parseInstructionAction,
     getMessariAiAction,
+    checkoutAction,
+    confirmOrderAction,
   ],
 
   // Initialize function
