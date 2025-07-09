@@ -76,6 +76,10 @@
             ]
           },
           {
+            "group": "Devrel Agents",
+            "pages": ["docs/v2/devrel-agents/jito"]
+          },
+          {
             "group": "Integrations",
             "pages": [
               {
