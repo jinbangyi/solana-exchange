@@ -1,6 +1,7 @@
 import { SolanaAgentKit } from "solana-agent-kit";
 import { CROSSMINT_PRODUCTION_API_URL } from "../constants";
 import { Order } from "../types";
+import axios from 'redaxios';
 
 export default async function confirmOrder(
   agent: SolanaAgentKit,
@@ -16,13 +17,13 @@ export default async function confirmOrder(
     const apiKey = agent.config.OTHER_API_KEYS?.CROSSMINT_API_KEY;
 
     const checkOrderStatus = async () => {
-      const response = await fetch(`${CROSSMINT_PRODUCTION_API_URL}/orders/${orderId}`, {
+      const response = await axios.get(`${CROSSMINT_PRODUCTION_API_URL}/orders/${orderId}`, {
         headers: {
           "X-API-KEY": apiKey || "",
         },
       });
 
-      const order: Order = await response.json();
+      const order: Order = response.data;
       return order;
     };
 

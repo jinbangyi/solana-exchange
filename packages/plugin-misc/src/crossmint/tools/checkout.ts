@@ -1,9 +1,10 @@
-import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
 import { VersionedTransaction } from "@solana/web3.js";
 import { SolanaAgentKit } from "solana-agent-kit";
 import { CROSSMINT_PRODUCTION_API_URL } from "../constants";
 import { CreateOrderRequest, CreateOrderResponse, Order, PhysicalAddress } from "../types";
 import confirmOrder from "./confirm-order";
+import bs58 from 'bs58';
+import axios from 'redaxios';
 
 /**
  * Create an Amazon order via Crossmint API
@@ -56,18 +57,15 @@ export default async function checkout(
   };
 
   try {
-    const response = await fetch(`${CROSSMINT_PRODUCTION_API_URL}/orders`, {
-      method: "POST",
+    const response = await axios.post(`${CROSSMINT_PRODUCTION_API_URL}/orders`, orderData, {
       headers: {
-        "Content-Type": "application/json",
         "X-API-KEY": apiKey,
       },
-      body: JSON.stringify(orderData),
     });
 
-    const order: CreateOrderResponse = await response.json();
+    const order: CreateOrderResponse = response.data;
 
-    if (!response.ok) {
+    if (!response.data) {
       throw new Error(order.message || "Failed to create order");
     }
 
