@@ -79,6 +79,41 @@ export interface BaseWallet {
   signMessage(message: Uint8Array): Promise<Uint8Array>;
 }
 
+/**
+ * Minimal EVM-compatible wallet interface.
+ * This is intentionally lightweight to avoid coupling to a specific EVM library.
+ */
+export interface EvmWallet {
+  /**
+   * The EVM address of the connected wallet
+   */
+  readonly address: string;
+
+  /**
+   * Sign an arbitrary message
+   */
+  signMessage(message: Uint8Array | string): Promise<string>;
+
+  /**
+   * Optionally sign a transaction-like object and return a raw signed tx
+   */
+  signTransaction?: (tx: Record<string, any>) => Promise<string>;
+
+  /**
+   * Optionally send a raw signed transaction and return the transaction hash
+   */
+  sendTransaction?: (rawSignedTx: string) => Promise<string>;
+
+  /**
+   * Optionally sign EIP-712 typed data
+   */
+  signTypedData?: (
+    domain: Record<string, any>,
+    types: Record<string, any>,
+    message: Record<string, any>,
+  ) => Promise<string>;
+}
+
 export async function signOrSendTX(
   agent: SolanaAgentKit,
   instructionsOrTransaction:
