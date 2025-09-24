@@ -84,30 +84,17 @@ export interface BaseWallet {
  * This is intentionally lightweight to avoid coupling to a specific EVM library.
  */
 export interface EvmWallet {
-  /**
-   * The EVM address of the connected wallet
-   */
   readonly address: string;
 
-  /**
-   * Sign an arbitrary message
-   */
+  getAddress(): Promise<string>;
+
   signMessage(message: Uint8Array | string): Promise<string>;
 
-  /**
-   * Optionally sign a transaction-like object and return a raw signed tx
-   */
   signTransaction?: (tx: Record<string, any>) => Promise<string>;
 
-  /**
-   * Optionally send a raw signed transaction and return the transaction hash
-   */
   sendTransaction?: (rawSignedTx: string) => Promise<string>;
 
-  /**
-   * Optionally sign EIP-712 typed data
-   */
-  signTypedData?: (
+  _signTypedData?: (
     domain: Record<string, any>,
     types: Record<string, any>,
     message: Record<string, any>,

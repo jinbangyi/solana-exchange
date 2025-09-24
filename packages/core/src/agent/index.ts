@@ -30,7 +30,14 @@ type PluginMethods<T> = T extends Plugin ? T["methods"] : Record<string, never>;
  *  signAllTransactions: async (txs) => {},
  *  sendTransaction: async (tx) => {},
  *  publicKey: "SomePublicKey",
- * }, "<rpcUrl>", {}, undefined);
+ * }, "<rpcUrl>", {}, {
+ *  address: "SomeEVMAddress",
+ *  getAddress: async () => "SomeEVMAddress",
+ *  signMessage: async (message) => "signedMessage",
+ *  signTransaction: async (tx) => "signedTx",
+ *  sendTransaction: async (rawSignedTx) => "txHash",
+ *  _signTypedData: async (domain, types, message) => "signedTypedData",
+ * });
  *
  * @example
  * // Add plugin
