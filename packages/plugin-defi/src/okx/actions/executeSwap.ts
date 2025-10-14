@@ -8,7 +8,7 @@ const executeSwapAction: Action = {
   similes: [
     "execute swap token through okx",
     "swap token through okx dex",
-    "run swap thouch okx dex",
+    "run swap through okx dex",
   ],
   examples: [
     [
